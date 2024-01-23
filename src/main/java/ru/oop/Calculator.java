@@ -13,11 +13,15 @@ public class Calculator {
     }
 
     public double divide(int y) {
-        return (double) x / y;
+        return (double) y / x;
+    }
+
+    public int multiply(int y) {
+        return y * x;
     }
 
     public double sumAllOperation(int y) {
-        return sum(y) + minus(y) + divide(y);
+        return sum(y) + minus(y) + divide(y) + multiply(y);
     }
 
     public static void main(String[] args) {
@@ -29,6 +33,4 @@ public class Calculator {
         System.out.println(calculator.divide(10));
         System.out.println(calculator.sumAllOperation(10));
     }
-
-
 }
