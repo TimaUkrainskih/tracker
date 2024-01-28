@@ -30,6 +30,19 @@ public class StartUI {
                         System.out.println("Хранилище еще не содержит заявок");
                     }
                     break;
+                case 2:
+                    System.out.println("=== Редактирование заявки ===");
+                    System.out.print("Введите id: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+                    System.out.print("Введите имя: ");
+                    String nameEdit = scanner.nextLine();
+                    Item itemEdit = new Item(nameEdit);
+                    if (tracker.replace(id, itemEdit)) {
+                        System.out.println("Заявка изменена успешно.");
+                    } else {
+                        System.out.println("Ошибка замены заявки.");
+                    }
+                    break;
                 case 6:
                     run = false;
                 default:
