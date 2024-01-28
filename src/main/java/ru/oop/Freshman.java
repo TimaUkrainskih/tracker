@@ -1,4 +1,4 @@
 package ru.oop;
 
-public class Freshman extends Student{
+public class Freshman extends Student {
 }
