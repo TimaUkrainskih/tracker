@@ -10,16 +10,32 @@ public class StartUI {
             showMenu();
             System.out.print("Выбрать: ");
             int select = Integer.parseInt(scanner.nextLine());
-            if (select == 0) {
-                System.out.println("=== Создание новой заявки ===");
-                System.out.print("Введите имя: ");
-                String name = scanner.nextLine();
-                Item item = new Item(name);
-                tracker.add(item);
-                System.out.println("Добавленная заявка: " + item);
-            } else if (select == 6) {
-                run = false;
+            switch (select) {
+                case 0:
+                    System.out.println("=== Создание новой заявки ===");
+                    System.out.print("Введите имя: ");
+                    String name = scanner.nextLine();
+                    Item item = new Item(name);
+                    tracker.add(item);
+                    System.out.println("Добавленная заявка: " + item);
+                    break;
+                case 1:
+                    System.out.println("=== Вывод всех заявок ===");
+                    Item[] items = tracker.findAll();
+                    if (items.length > 0) {
+                        for (Item it : items) {
+                            System.out.println(it);
+                        }
+                    } else {
+                        System.out.println("Хранилище еще не содержит заявок");
+                    }
+                    break;
+                case 6:
+                    run = false;
+                default:
+                    System.out.println("Error");
             }
+
         }
     }
 
