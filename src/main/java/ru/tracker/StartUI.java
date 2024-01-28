@@ -43,6 +43,18 @@ public class StartUI {
                         System.out.println("Ошибка замены заявки.");
                     }
                     break;
+                case 3:
+                    System.out.println("=== Удаление заявки ===");
+                    System.out.print("Введите id: ");
+                    int idDelete = Integer.parseInt(scanner.nextLine());
+                    Item itemDelete = tracker.findById(idDelete);
+                    tracker.delete(idDelete);
+                    if (itemDelete != null) {
+                        System.out.println("Заявка удалена успешно.");
+                    } else {
+                        System.out.println("Ошибка удаления заявки.");
+                    }
+                    break;
                 case 6:
                     run = false;
                 default:
