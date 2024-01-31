@@ -1,8 +1,8 @@
-package ru.tracker;
+package ru.tracker.input;
 
 import java.util.Scanner;
 
-public class ConsoleInput implements Input {
+public class Console implements Input {
     private Scanner scanner = new Scanner(System.in);
 
     @Override
