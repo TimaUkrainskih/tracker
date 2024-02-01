@@ -11,9 +11,8 @@ public class FindEl {
         }
         if (result == -1) {
             throw new ElementNotFoundException("No such element");
-        } else {
-            return result;
         }
+        return result;
     }
 
     public static void main(String[] args) {
