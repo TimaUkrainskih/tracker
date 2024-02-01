@@ -9,10 +9,10 @@ public class FindEl {
                 break;
             }
         }
-        if (result != -1) {
-            return result;
-        } else {
+        if (result == -1) {
             throw new ElementNotFoundException("No such element");
+        } else {
+            return result;
         }
     }
 
