@@ -18,12 +18,14 @@ public class StartUI {
         while (run) {
             showMenu(actions);
             int select = input.askInt("Выбрать: ");
-            try {
+            if (select >= 0 && 6 >= select) {
                 UserAction action = actions[select];
                 run = action.execute(input, tracker);
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } else {
                 System.out.println("Вы выбрали несуществующий пункт меню");
             }
+
+
 
         }
     }
