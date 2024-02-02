@@ -18,11 +18,11 @@ public class StartUI {
         while (run) {
             showMenu(actions);
             int select = input.askInt("Выбрать: ");
-            if (select >= 0 && 6 >= select) {
+            if (select >= 0 && actions.length > select) {
                 UserAction action = actions[select];
                 run = action.execute(input, tracker);
             } else {
-                output.println("Вы выбрали несуществующий пункт меню");
+                output.println("Неверный ввод, вы можете выбрать: 0 ... " + actions.length);
             }
 
 
