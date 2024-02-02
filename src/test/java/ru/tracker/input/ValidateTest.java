@@ -12,7 +12,7 @@ class ValidateTest {
     void whenInvalidInput() {
         Output output = new Stub();
         Input in = new Mock(
-                new String[] {"one", "1"}
+                new String[]{"one", "1"}
         );
         Validate input = new Validate(output, in);
         int selected = input.askInt("Enter menu:");
@@ -23,7 +23,7 @@ class ValidateTest {
     void whenCorrectInput() {
         Output output = new Stub();
         Input in = new Mock(
-                new String[] {"2"}
+                new String[]{"2"}
         );
         Validate input = new Validate(output, in);
         int selected = input.askInt("Enter menu:");
@@ -34,7 +34,7 @@ class ValidateTest {
     void whenMultipleCorrectInput() {
         Output output = new Stub();
         Input in = new Mock(
-                new String[] {"2","3","4","5"}
+                new String[]{"2", "3", "4", "5"}
         );
         Validate input = new Validate(output, in);
         int selected = input.askInt("Enter menu:");
@@ -51,7 +51,7 @@ class ValidateTest {
     void whenNegativeNumberInput() {
         Output output = new Stub();
         Input in = new Mock(
-                new String[] {"-2","-3"}
+                new String[]{"-2", "-3"}
         );
         Validate input = new Validate(output, in);
         int selected = input.askInt("Enter menu:");
