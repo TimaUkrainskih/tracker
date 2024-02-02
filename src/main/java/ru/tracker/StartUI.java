@@ -2,6 +2,7 @@ package ru.tracker;
 
 import ru.tracker.action.*;
 import ru.tracker.input.Input;
+import ru.tracker.input.ValidateInput;
 import ru.tracker.output.Console;
 import ru.tracker.output.Output;
 
@@ -17,8 +18,13 @@ public class StartUI {
         while (run) {
             showMenu(actions);
             int select = input.askInt("Выбрать: ");
-            UserAction action = actions[select];
-            run = action.execute(input, tracker);
+            try {
+                UserAction action = actions[select];
+                run = action.execute(input, tracker);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Вы выбрали несуществующий пункт меню");
+            }
+
         }
     }
 
@@ -31,7 +37,7 @@ public class StartUI {
 
     public static void main(String[] args) {
         Output output = new Console();
-        Input input = new ru.tracker.input.Console();
+        Input input = new ValidateInput();
         Tracker tracker = new Tracker();
         UserAction[] actions = {
                 new Create(output),
