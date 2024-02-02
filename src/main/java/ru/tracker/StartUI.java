@@ -22,7 +22,7 @@ public class StartUI {
                 UserAction action = actions[select];
                 run = action.execute(input, tracker);
             } else {
-                System.out.println("Вы выбрали несуществующий пункт меню");
+                output.println("Вы выбрали несуществующий пункт меню");
             }
 
 
