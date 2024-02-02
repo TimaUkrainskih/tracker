@@ -1,9 +1,10 @@
 package ru.tracker;
 
 import ru.tracker.action.*;
+import ru.tracker.input.ConsoleInput;
 import ru.tracker.input.Input;
-import ru.tracker.input.ValidateInput;
-import ru.tracker.output.Console;
+import ru.tracker.input.Validate;
+import ru.tracker.output.ConsoleOutput;
 import ru.tracker.output.Output;
 
 public class StartUI {
@@ -38,8 +39,8 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
-        Output output = new Console();
-        Input input = new ValidateInput();
+        Output output = new ConsoleOutput();
+        Input input = new Validate(output, new ConsoleInput());
         Tracker tracker = new Tracker();
         UserAction[] actions = {
                 new Create(output),
