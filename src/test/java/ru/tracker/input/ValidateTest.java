@@ -20,7 +20,7 @@ class ValidateTest {
     }
 
     @Test
-    void whenCorrectInput() {
+    void whenValidInput() {
         Output output = new Stub();
         Input in = new Mock(
                 new String[]{"2"}
@@ -31,7 +31,7 @@ class ValidateTest {
     }
 
     @Test
-    void whenMultipleCorrectInput() {
+    void whenMultipleValidInput() {
         Output output = new Stub();
         Input in = new Mock(
                 new String[]{"2", "3", "4", "5"}
