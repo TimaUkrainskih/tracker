@@ -3,12 +3,16 @@ package ru.tracker;
 
 public class SingleTracker {
     private static Tracker tracker = new Tracker();
+    private static SingleTracker singleTracker = null;
 
     private SingleTracker() {
     }
 
-    public static Tracker getInstance() {
-        return tracker;
+    public static SingleTracker getInstance() {
+        if (singleTracker == null) {
+            singleTracker = new SingleTracker();
+        }
+        return singleTracker;
     }
 
     public Item add(Item item) {
