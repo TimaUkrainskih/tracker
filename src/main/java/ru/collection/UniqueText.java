@@ -8,12 +8,6 @@ public class UniqueText {
         String[] origin = originText.split(" ");
         String[] text = duplicateText.split(" ");
         HashSet<String> check = new HashSet<>(Arrays.asList(origin));
-        int count = 0;
-        for (String word : text) {
-            if (check.contains(word)) {
-                count++;
-            }
-        }
-        return count == origin.length;
+        return check.containsAll(new HashSet<>(Arrays.asList(text)));
     }
 }
