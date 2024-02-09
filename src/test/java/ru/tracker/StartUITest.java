@@ -7,6 +7,8 @@ import ru.tracker.input.Mock;
 import ru.tracker.output.Output;
 import ru.tracker.output.Stub;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class StartUITest {
@@ -17,10 +19,9 @@ class StartUITest {
                 new String[]{"0", "Item name", "1"}
         );
         Tracker tracker = new Tracker();
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new Create(output),
-                new Exit(output)
-        };
+                new Exit(output));
         new StartUI(output).init(input, tracker, actions);
         assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
     }
@@ -34,10 +35,9 @@ class StartUITest {
         Input input = new Mock(
                 new String[]{"0", String.valueOf(item.getId()), replacedName, "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new Replace(output),
-                new Exit(output)
-        };
+                new Exit(output));
         new StartUI(output).init(input, tracker, actions);
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo(replacedName);
     }
@@ -50,10 +50,9 @@ class StartUITest {
         Input input = new Mock(
                 new String[]{"0", String.valueOf(item.getId()), "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new Delete(output),
-                new Exit(output)
-        };
+                new Exit(output));
         new StartUI(output).init(input, tracker, actions);
         assertThat(tracker.findById(item.getId())).isNull();
     }
@@ -67,10 +66,9 @@ class StartUITest {
         Input input = new Mock(
                 new String[]{"0", String.valueOf(one.getId()), replaceName, "1"}
         );
-        UserAction[] actions = new UserAction[]{
+        List<UserAction> actions = List.of(
                 new Replace(output),
-                new Exit(output)
-        };
+                new Exit(output));
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
@@ -93,10 +91,9 @@ class StartUITest {
         Input input = new Mock(
                 new String[]{"0", "1"}
         );
-        UserAction[] actions = new UserAction[]{
+        List<UserAction> actions = List.of(
                 new FindAll(output),
-                new Exit(output)
-        };
+                new Exit(output));
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
@@ -120,10 +117,9 @@ class StartUITest {
         Input input = new Mock(
                 new String[]{"0", one.getName(), "1"}
         );
-        UserAction[] actions = new UserAction[]{
+        List<UserAction> actions = List.of(
                 new FindByName(output),
-                new Exit(output)
-        };
+                new Exit(output));
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
@@ -147,10 +143,9 @@ class StartUITest {
         Input input = new Mock(
                 new String[]{"0", String.valueOf(one.getId()), "1"}
         );
-        UserAction[] actions = new UserAction[]{
+        List<UserAction> actions = List.of(
                 new FindById(output),
-                new Exit(output)
-        };
+                new Exit(output));
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
@@ -173,9 +168,8 @@ class StartUITest {
                 new String[]{"1", "0"}
         );
         Tracker tracker = new Tracker();
-        UserAction[] actions = new UserAction[]{
-                new Exit(output)
-        };
+        List<UserAction> actions = List.of(
+                new Exit(output));
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
