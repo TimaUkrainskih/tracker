@@ -1,6 +1,7 @@
 package ru.collection;
 
 import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PassportOfficeTest {
@@ -13,7 +14,7 @@ public class PassportOfficeTest {
     }
 
     @Test
-    public void whenTestAddMethodIsFalse(){
+    public void whenTestAddMethodIsFalse() {
         Citizen citizen = new Citizen("2f44a", "Ivan Ivanov");
         PassportOffice office = new PassportOffice();
         office.add(citizen);
