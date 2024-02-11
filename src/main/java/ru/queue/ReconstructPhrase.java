@@ -16,12 +16,11 @@ public class ReconstructPhrase {
     private String getEvenElements() {
         StringBuilder result = new StringBuilder();
         int size = evenElements.size();
-        for (int i = 0; i < size; i += 2) {
+        for (int i = 0; i < size; i++) {
+            char value = evenElements.pollFirst();
             if (i % 2 == 0) {
-                result.append(evenElements.pollFirst());
+                result.append(value);
             }
-            evenElements.pollFirst();
-
         }
         return result.toString();
     }
