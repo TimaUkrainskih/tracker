@@ -48,18 +48,17 @@ public class AnalyzeByMap {
     }
 
     public static Label bestStudent(List<Pupil> pupils) {
-        Label best = null;
+        List<Label> result = new ArrayList<>();
         for (Pupil pupil : pupils) {
             double total = 0;
             for (Subject subject : pupil.subjects()) {
                 total += subject.score();
             }
             Label current = new Label(pupil.name(), total);
-            if (best == null || best.score() < current.score()) {
-                best = current;
-            }
+            result.add(current);
         }
-        return best;
+        result.sort(Comparator.naturalOrder());
+        return result.get(result.size() - 1);
     }
 
     public static Label bestSubject(List<Pupil> pupils) {
