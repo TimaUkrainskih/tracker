@@ -11,6 +11,7 @@ public class BankService {
     public boolean addUser(User user) {
         if (!users.containsKey(user)) {
             users.put(user, new ArrayList<>());
+            return true;
         }
         return false;
     }
