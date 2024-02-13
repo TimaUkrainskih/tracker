@@ -19,29 +19,28 @@ public class AnalyzeByMap {
         List<Label> result = new ArrayList<>();
         for (Pupil pupil : pupils) {
             double avgScore = 0;
-            for (Subject subject : pupil.subjects()) {
+            List<Subject> subjectList = pupil.subjects();
+            for (Subject subject : subjectList) {
                 avgScore += subject.score();
             }
-            result.add(new Label(pupil.name(), avgScore / pupil.subjects().size()));
+            result.add(new Label(pupil.name(), avgScore / subjectList.size()));
         }
         return result;
     }
 
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
-        Map<String, Double> subjectTotalScore = new HashMap<>();
-        Map<String, Integer> subjectCount = new HashMap<>();
+        Map<String, Double> subjectTotalScore = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
                 String subjectName = subject.name();
                 double score = subject.score();
                 subjectTotalScore.put(subjectName, subjectTotalScore.getOrDefault(subjectName, 0D) + score);
-                subjectCount.put(subjectName, subjectCount.getOrDefault(subjectName, 0) + 1);
             }
         }
         List<Label> result = new ArrayList<>();
         for (String nameSubject : subjectTotalScore.keySet()) {
             double total = subjectTotalScore.get(nameSubject);
-            int count = subjectCount.get(nameSubject);
+            int count = pupils.size();
             result.add(new Label(nameSubject, total / count));
         }
         return result;
@@ -70,13 +69,12 @@ public class AnalyzeByMap {
                 subjectTotalScore.put(subjectName, subjectTotalScore.getOrDefault(subjectName, 0D) + score);
             }
         }
-        Label best = null;
+        List<Label> result = new ArrayList<>();
         for (String nameSubject : subjectTotalScore.keySet()) {
             Label current = new Label(nameSubject, subjectTotalScore.get(nameSubject));
-            if (best == null || best.score() < current.score()) {
-                best = current;
-            }
+            result.add(current);
         }
-        return best;
+        Collections.sort(result);
+        return result.get(result.size() - 1);
     }
 }
