@@ -29,14 +29,7 @@ public class AnalyzeByMap {
     }
 
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
-        Map<String, Double> subjectTotalScore = new LinkedHashMap<>();
-        for (Pupil pupil : pupils) {
-            for (Subject subject : pupil.subjects()) {
-                String subjectName = subject.name();
-                double score = subject.score();
-                subjectTotalScore.put(subjectName, subjectTotalScore.getOrDefault(subjectName, 0D) + score);
-            }
-        }
+        Map<String, Double> subjectTotalScore = pairSubjectTotalScore(pupils);
         List<Label> result = new ArrayList<>();
         for (String nameSubject : subjectTotalScore.keySet()) {
             double total = subjectTotalScore.get(nameSubject);
@@ -61,14 +54,7 @@ public class AnalyzeByMap {
     }
 
     public static Label bestSubject(List<Pupil> pupils) {
-        Map<String, Double> subjectTotalScore = new HashMap<>();
-        for (Pupil pupil : pupils) {
-            for (Subject subject : pupil.subjects()) {
-                String subjectName = subject.name();
-                double score = subject.score();
-                subjectTotalScore.put(subjectName, subjectTotalScore.getOrDefault(subjectName, 0D) + score);
-            }
-        }
+        Map<String, Double> subjectTotalScore = pairSubjectTotalScore(pupils);
         List<Label> result = new ArrayList<>();
         for (String nameSubject : subjectTotalScore.keySet()) {
             Label current = new Label(nameSubject, subjectTotalScore.get(nameSubject));
@@ -76,5 +62,17 @@ public class AnalyzeByMap {
         }
         Collections.sort(result);
         return result.get(result.size() - 1);
+    }
+
+    public static LinkedHashMap<String, Double> pairSubjectTotalScore(List<Pupil> pupils) {
+        LinkedHashMap<String, Double> subjectTotalScore = new LinkedHashMap<>();
+        for (Pupil pupil : pupils) {
+            for (Subject subject : pupil.subjects()) {
+                String subjectName = subject.name();
+                double score = subject.score();
+                subjectTotalScore.put(subjectName, subjectTotalScore.getOrDefault(subjectName, 0D) + score);
+            }
+        }
+        return subjectTotalScore;
     }
 }
