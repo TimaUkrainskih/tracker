@@ -20,12 +20,11 @@ public class College {
     }
 
     public Optional<Subject> findBySubjectName(String account, String name) {
-        return students.entrySet()
-                .stream()
-                .filter(entry -> entry.getKey().account().equals(account))
-                .flatMap(entry -> entry.getValue().stream())
-                .filter(subject -> subject.name().equals(name))
-                .findFirst();
+        return findByAccount(account)
+                .flatMap(student -> students.get(student).stream()
+                        .filter(subject -> subject.name().equals(name))
+                        .findFirst());
+
     }
 
 }
