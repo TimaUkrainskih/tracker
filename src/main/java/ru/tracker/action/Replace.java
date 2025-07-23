@@ -1,7 +1,8 @@
 package ru.tracker.action;
 
 import ru.tracker.Item;
-import ru.tracker.Tracker;
+import ru.tracker.MemTracker;
+import ru.tracker.Store;
 import ru.tracker.input.Input;
 import ru.tracker.output.Output;
 
@@ -18,7 +19,7 @@ public class Replace implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store tracker) {
         output.println("=== Редактирование заявки ===");
         int id = input.askInt("Введите id: ");
         String name = input.askStr("Введите имя: ");

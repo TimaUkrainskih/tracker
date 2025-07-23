@@ -1,6 +1,7 @@
 package ru.tracker.action;
 
-import ru.tracker.Tracker;
+import ru.tracker.MemTracker;
+import ru.tracker.Store;
 import ru.tracker.input.Input;
 import ru.tracker.output.Output;
 
@@ -17,10 +18,11 @@ public class Delete implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store tracker) {
         output.println("=== Удаление заявки ===");
         int id = input.askInt("Введите id: ");
-        if (tracker.delete(id)) {
+        tracker.delete(id);
+        if (tracker.findById(id) == null) {
             output.println("Заявка удалена успешно.");
         } else {
             output.println("Ошибка удаления заявки.");

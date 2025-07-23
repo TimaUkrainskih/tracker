@@ -23,6 +23,12 @@ public class Item {
         this.id = id;
     }
 
+    public Item(int id, String name, LocalDateTime dateTime) {
+        this.name = name;
+        this.id = id;
+        this.created = dateTime;
+    }
+
     public int getId() {
         return id;
     }
