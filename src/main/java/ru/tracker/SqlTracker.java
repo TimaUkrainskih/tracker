@@ -20,7 +20,7 @@ public class SqlTracker implements Store {
 
     private void init() {
         try (InputStream input = SqlTracker.class.getClassLoader()
-                .getResourceAsStream("app.properties")) {
+                .getResourceAsStream("db/liquibase.properties")) {
             Properties config = new Properties();
             config.load(input);
             Class.forName(config.getProperty("driver-class-name"));
@@ -43,12 +43,12 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        String sqlQuery = "insert into item(name, created_datetime) values(?,?)";
+        String sqlQuery = "insert into items (name, created) values(?,?)";
         try (PreparedStatement statement = this.connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
             statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             statement.execute();
-            try (ResultSet resultSet = statement.getResultSet()) {
+            try (ResultSet resultSet = statement.getGeneratedKeys()) {
                 if (resultSet.next()) {
                     item.setId(resultSet.getInt(1));
                 }
@@ -61,7 +61,7 @@ public class SqlTracker implements Store {
 
     @Override
     public boolean replace(int id, Item item) {
-        String sqlQuery = "update item set name = ?, created_datetime = ? where id = ?";
+        String sqlQuery = "update items set name = ?, created = ? where id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setString(1, item.getName());
             statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
@@ -74,7 +74,7 @@ public class SqlTracker implements Store {
 
     @Override
     public void delete(int id) {
-        String sqlQuery = "delete from item where id = ?";
+        String sqlQuery = "delete from items where id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, id);
             statement.execute();
@@ -86,7 +86,7 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findAll() {
         List<Item> items = new ArrayList<>();
-        String sqlQuery = "select id, name, created_datetime from item";
+        String sqlQuery = "select id, name, created from items";
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.execute();
             try (ResultSet resultSet = statement.getResultSet()) {
@@ -95,7 +95,7 @@ public class SqlTracker implements Store {
                             new Item(
                                     resultSet.getInt("id"),
                                     resultSet.getString("name"),
-                                    resultSet.getTimestamp("created_datetime").toLocalDateTime()
+                                    resultSet.getTimestamp("created").toLocalDateTime()
                             )
                     );
                 }
@@ -109,7 +109,7 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findByName(String key) {
         List<Item> items = new ArrayList<>();
-        String sqlQuery = "select id, name, created_datetime from item where name = ?";
+        String sqlQuery = "select id, name, created from items where name = ?";
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setString(1, key);
             statement.execute();
@@ -119,7 +119,7 @@ public class SqlTracker implements Store {
                             new Item(
                                     resultSet.getInt("id"),
                                     resultSet.getString("name"),
-                                    resultSet.getTimestamp("created_datetime").toLocalDateTime()
+                                    resultSet.getTimestamp("created").toLocalDateTime()
                             )
                     );
                 }
@@ -132,7 +132,7 @@ public class SqlTracker implements Store {
 
     @Override
     public Item findById(int id) {
-        String sqlQuery = "select id, name, created_datetime from item where id = ?";
+        String sqlQuery = "select id, name, created from items where id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, id);
             statement.execute();
@@ -141,7 +141,7 @@ public class SqlTracker implements Store {
                     return new Item(
                             resultSet.getInt("id"),
                             resultSet.getString("name"),
-                            resultSet.getTimestamp("created_datetime").toLocalDateTime()
+                            resultSet.getTimestamp("created").toLocalDateTime()
                     );
                 }
             }
